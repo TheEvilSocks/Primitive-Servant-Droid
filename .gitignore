@@ -3,3 +3,5 @@
 !.gitignore
 !modules/*.js
 !modules/
+!configs/superAuth.json
+!configs/
