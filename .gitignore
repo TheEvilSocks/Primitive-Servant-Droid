@@ -5,4 +5,6 @@
 !modules/*.js
 !modules/
 !psd_modular.js
+!database.js
+
 configs/superAuth.json

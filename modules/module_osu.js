@@ -30,7 +30,7 @@ module.exports = {
 			alreadyExists = true;
 		}
 	}
-	  
+
 	  	if (regex.test(osuID)) {
 			if(!alreadyExists){
 			e.bot.sendMessage({
@@ -52,28 +52,28 @@ module.exports = {
 						beatmapTitle = output[0].artist + " - " + output[0].title + " ";
 					  else
 						beatmapTitle = "";
-					
-					
+
+
 					if(beatmapTitle != ""){
 						e.bot.editMessage({
 							channel: e.channelID,
 							messageID: callback.id,
-							message: "<@" + e.userID + "> I'm looking up that osu! beatmap ID to be sure it's actually valid, please wait a few seconds!\n\nThanks for teaching me this beatmap `" + beatmapTitle + "[" + osuID + "]`\n\nIt took me `" + parseFloat((new Date().getTime() - currentTime)/1000).toFixed(2) + "` seconds." 
+							message: "<@" + e.userID + "> I'm looking up that osu! beatmap ID to be sure it's actually valid, please wait a few seconds!\n\nThanks for teaching me this beatmap `" + beatmapTitle + "[" + osuID + "]`\n\nIt took me `" + parseFloat((new Date().getTime() - currentTime)/1000).toFixed(2) + "` seconds."
 						});
 					}else{
 						e.bot.editMessage({
 							channel: e.channelID,
 							messageID: callback.id,
-							message: "<@" + e.userID + "> It doesn't seem `[" + osuID + "]` is valid :(" 
+							message: "<@" + e.userID + "> It doesn't seem `[" + osuID + "]` is valid :("
 						});
 					}
-					  
-				
+
+
 						e.db.beatmaps['id'].push(args[1]);
 						e.db.saveConfig();
-					  
+
 				  });
-				
+
 			});
 		  }else{
 			e.bot.sendMessage({
@@ -87,11 +87,11 @@ module.exports = {
 			  message: "<@" + e.userID + "> Hah nice try, but I am not stupid. \n(Invalid character in your id)"
 		  });
 		}
-		
-		
-	  
 
-      
+
+
+
+
 
     }else if(args[0].toLowerCase() === "delete"){
       for(var i = 0; i < e.db.beatmaps['id'].length; i++) {
@@ -100,7 +100,7 @@ module.exports = {
               e.db.beatmaps['id'].splice(e.db.beatmaps['id'][i], 1);
               e.bot.sendMessage({
                 to: e.channelID,
-                message: "<@" + e.userID + "> I forgot that video."
+                message: "<@" + e.userID + "> I forgot that beatmap."
               });
               e.db.saveConfig();
               return;
@@ -109,7 +109,7 @@ module.exports = {
 
       e.bot.sendMessage({
         to: e.channelID,
-        message: "<@" + e.userID + "> I don't know this video."
+        message: "<@" + e.userID + "> I don't know this beatmap."
       });
 
       return;

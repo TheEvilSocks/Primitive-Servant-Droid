@@ -50,7 +50,7 @@ bot.on("ready", function(rawEvent) {
 var commands = {
   ping: {
 	description: "ping - The bot will reply with 'Pong!' and a delay of how long it took",
-    
+
     cooldown: 750,
     lastTime: 0,
 	permission: {
@@ -69,16 +69,16 @@ var commands = {
 					averageDelay+= e.db.pings[i];
 				}
 				averageDelay = parseFloat(averageDelay/e.db.pings.length-1).toFixed(2);
-				
+
 				e.db.pings.push(delay);
 				e.db.saveConfig();
 			bot.editMessage({
 				channel: e.channelID,
 				messageID: response.id,
-				message: "<@" + e.userID + "> Pong! \nDelay: " + delay + "ms\nAverage delay: " + averageDelay + "ms" 
+				message: "<@" + e.userID + "> Pong! \nDelay: " + delay + "ms\nAverage delay: " + averageDelay + "ms"
 			});
-			
-			
+
+
 			}) ;
       //sendMessages(e, ["<@" + e.userID + "> Pong"]);
       console.log("Ponged <@" + e.userID + ">");
@@ -121,14 +121,14 @@ var commands = {
     lastTime: 0,
 	description: "help - Shows help for all commands you have permissions for",
     action: function(args, e) {
-		
+
 		var userInGroups = [];
 		for(var grp in e.db.groups){
 			if(e.db.groups[grp].indexOf(e.userID) > -1){
 				userInGroups.push(grp);
 			}
 
-		}	
+		}
 		if(userInGroups.length == 0)
 			userInGroups.push("");
 		var queryResult = [];
@@ -154,17 +154,17 @@ var commands = {
 			if(commands[queryResult[cmd]].description != undefined){
 				helpMessage += commands[queryResult[cmd]].description + "\n"
 			}else{
-				helpMessage += queryResult[cmd] + " - No description\n"				
+				helpMessage += queryResult[cmd] + " - No description\n"
 			}
 		}
-	  
-      sendMessages(e, [helpMessage + 
-	  
+
+      sendMessages(e, [helpMessage +
+
 	  "```\nThere might be some more commands. Either I forgot to add them to this list, or they require certain permissions."]);
     }
   },
   come: {
-	  description: "come - Let's the bot listen on the current channel", 
+	  description: "come - Let's the bot listen on the current channel",
     permission: {
       group: ["root", "dev"],
       onlyMonitored: false
@@ -226,13 +226,24 @@ var commands = {
   encode: require("./modules/module_encode.js"),
   decode: require("./modules/module_decode.js"),
   id: require("./modules/module_id.js"),
-  flip: require("./modules/module_flip.js"), 
-  gif: require("./modules/module_gif.js"), 
-  remind: require("./modules/module_remind.js"), 
-  anime: require("./modules/module_anime.js"), 
-  pastebin: require("./modules/module_pastebin.js"), 
-  osu: require("./modules/module_osu.js"), 
-  
+  flip: require("./modules/module_flip.js"),
+  gif: require("./modules/module_gif.js"),
+  remind: require("./modules/module_remind.js"),
+  anime: require("./modules/module_anime.js"),
+  pastebin: require("./modules/module_pastebin.js"),
+  osu: require("./modules/module_osu.js"),
+  github : {
+  	lastTime: 0,
+  	cooldown: 500,
+  	description: "github - Shows my organs",
+    permission: {
+      onlyMonitored: true
+    },
+    action: function(args, e){
+      sendMessages(e, ["**My Github:** https://github.com/TheEvilSocks/Primitive-Servant-Droid"]);
+    }
+
+  },
   description: {
 	lastTime: 0,
 	cooldown: 500,
@@ -246,12 +257,12 @@ var commands = {
 			if(commands[args[0].toLowerCase()] != undefined){
 				sendMessages(e,["**Description of: `" + args[0] + "`**\n ```" + commands[args[0].toLowerCase()].description + "```"]);
 			}else{
-				sendMessages(e,["There was no description found for `" + args[0] + "` or the command does not exist."]);				
+				sendMessages(e,["There was no description found for `" + args[0] + "` or the command does not exist."]);
 			}
 		}
 
 	}
-	  
+
   },
   debug: {
 	lastTime: 0,
@@ -280,19 +291,19 @@ var commands = {
 						}
 					}
 				}
-				
+
 				if(queryResult.length > 0){
 					sendMessages(e, ["`" + args[1] + "` has access to: \n`" + queryResult.sort() + "`" ]);
 				}else{
 					sendMessages(e,["`" + args[1] + "` only has access to public commands."]);
 				}
-				
+
 			}
 		}
 
 	}
-  }, 
-  
+  },
+
   cake:{
   lastTime: 0,
   cooldown: 500,
@@ -303,7 +314,7 @@ var commands = {
 	  },
 	  action: function(args, e){
 		  sendMessages(e,["It's a lie\n\n	Ỏ̷͖͈̞̩͎̻̫̫̜͉̠̫͕̭̭̫̫̹̗̹͈̼̠̖͍͚̥͈̮̼͕̠̤̯̻̥̬̗̼̳̤̳̬̪̹͚̞̼̠͕̼̠̦͚̫͔̯̹͉͉̘͎͕̼̣̝͙̱̟̹̩̟̳̦̭͉̮̖̭̣̣̞̙̗̜̺̭̻̥͚͙̝̦̲̱͉͖͉̰̦͎̫̣̼͎͍̠̮͓̹̹͉̤̰̗̙͕͇͔̱͕̭͈̳̗̭͔̘̖̺̮̜̠͖̘͓̳͕̟̠̱̫̤͓͔̘̰̲͙͍͇̙͎̣̼̗̖͙̯͉̠̟͈͍͕̪͓̝̩̦̖̹̼̠̘̮͚̟͉̺̜͍͓̯̳̱̻͕̣̳͉̻̭̭̱͍̪̩̭̺͕̺̼̥̪͖̦̟͎̻̰_Ỏ̷͖͈̞̩͎̻̫̫̜͉̠̫͕̭̭̫̫̹̗̹͈̼̠̖͍͚̥͈̮̼͕̠̤̯̻̥̬̗̼̳̤̳̬̪̹͚̞̼̠͕̼̠̦͚̫͔̯̹͉͉̘͎͕̼̣̝͙̱̟̹̩̟̳̦̭͉̮̖̭̣̣̞̙̗̜̺̭̻̥͚͙̝̦̲̱͉͖͉̰̦͎̫̣̼͎͍̠̮͓̹̹͉̤̰̗̙͕͇͔̱͕̭͈̳̗̭͔̘̖̺̮̜̠͖̘͓̳͕̟̠̱̫̤͓͔̘̰̲͙͍͇̙͎̣̼̗̖͙̯͉̠̟͈͍͕̪͓̝̩̦̖̹̼̠̘̮͚̟͉̺̜͍͓̯̳̱̻͕̣̳͉̻̭̭̱͍̪̩̭̺͕̺̼̥̪͖̦̟͎̻̰"]);
-	  }  
+	  }
   },
   generate: {
   lastTime: 0,
@@ -317,11 +328,11 @@ var commands = {
 			if(args[0] == parseInt(args[0])){
 				if(parseInt(args[0]) > 0 && parseInt(args[0]) <= 1998){
 					var text = "";
-					
+
 					var possible = "";
 					for(i=1; i<args.length;i++)
 						possible +=args[i] + " ";
-					
+
 					possible=possible.substring(0,possible.length-1);
 
 					for( var i=0; i < parseInt(args[0]); i++ )
@@ -331,7 +342,7 @@ var commands = {
 				}else{
 					sendMessages(e,["Second parameter should be higher than 0 and cannot be higher than 1998"]);
 				}
-				
+
 			}else{
 				sendMessages(e,["First parameter should be an integer"]);
 			}
@@ -349,7 +360,7 @@ var commands = {
       sendMessages(e, ["**I am currently listening to these channels:**\n```" + database.channels + "```"]);
     }
   },
-  
+
   version: {
 	description: "version - Shows the current version of the bot",
 	permission: {
@@ -367,14 +378,14 @@ var commands = {
     action: function(args, e) {
       var t = Math.floor((((new Date()).getTime() / 1000) - startTime));
       sendMessages(e, [
-	  "My current version is: `" + VERSION + "`\n" + 
-	  "I been awake since `" + tm(startTime) + "`\n" + 
-	  "I am in `" + MODE + "` mode right now.\n" + 
-	  "My current uptime is: `" + t + "` seconds\n" + 
-	  "The global cooldown is set to `" + config.globalcooldown/1000 +"` seconds\n" + 
+	  "My current version is: `" + VERSION + "`\n" +
+	  "I been awake since `" + tm(startTime) + "`\n" +
+	  "I am in `" + MODE + "` mode right now.\n" +
+	  "My current uptime is: `" + t + "` seconds\n" +
+	  "The global cooldown is set to `" + config.globalcooldown/1000 +"` seconds\n" +
 	  "<@132842210231189504> is my owner!\n\nI stole the core from Zephy, who in turn stole it from Windsdon"]);
     }
-  }, 
+  },
 	uptime: {
 	description: "uptime - Shows the current uptime of the bot",
 	permission: {
@@ -383,7 +394,7 @@ var commands = {
     action: function(args, e) {
       var t = Math.floor((((new Date()).getTime() / 1000) - startTime));
       sendMessages(e, ["My current uptime is: `" + t + "` seconds"]);
-    }		
+    }
 	},
 	database: require("./modules/module_database.js")
 }
@@ -471,27 +482,27 @@ function processMessage(user, userID, channelID, message, rawEvent) {
 		  case -1:
 		  bot.sendMessage({
 			to: channelID,
-			message: "An unknown error occured."			
+			message: "An unknown error occured."
 		});
 		  break;
-		  
+
 		  case 1:
 		  console.log("User cant run this command");
 		  break;
-		  
+
 		  case 2:
 		  bot.sendMessage({
 			to: channelID,
-			message: "You do not have the required permissions to run this command."			
+			message: "You do not have the required permissions to run this command."
 		});
 		  break;
 		  case 3:
 		  bot.sendMessage({
 			to: channelID,
-			message: "I do not know that command."			
+			message: "I do not know that command."
 		});
 		  break;
-		  
+
 	  }
 
     return;
@@ -540,17 +551,17 @@ function parse(string) {
   };
 }
 function canUserRun(command, uid, channelID) {
-	
+
 	/*
 	0 = Can Run
 	1 = Not listening
 	2 = No permission
 	3 = Invalid command
-	
+
 	-1 = No, other error
-	
+
 	*/
-	
+
   if (!commands[command]) {
     if (database.channels.indexOf(channelID) == -1) {
 		if(bot.serverFromChannel(channelID) != undefined){
