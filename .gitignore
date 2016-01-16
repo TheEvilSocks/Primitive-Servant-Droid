@@ -1,6 +1,8 @@
 *
 
+!README.md
 !.gitignore
 !modules/*.js
 !modules/
 !psd_modular.js
+configs/superAuth.json
