@@ -7,6 +7,13 @@ module.exports = {
     onlyMonitored: true
   },
   action: function(args, e) {
+	  if(args.length < 2){
+		  e.bot.sendMessage({
+			  to: e.channelID,
+			  message: "**Usage:**\n" + module.exports.description
+		  });
+		  return;
+	  }
      if (args[0].toLowerCase() == "base64") {
 		var toDecode = "";
 		for(i=1;i<args.length;i++){

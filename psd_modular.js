@@ -1,5 +1,5 @@
 /*Variable area*/
-var VERSION = "1.10.2 - InDev | Modular Branch";
+var VERSION = "1.11.1 - InDev | Modular Branch";
 var MODE = "production";
 process.argv.forEach(function(val, index, array) {
   if (val === "development") MODE = "development";
@@ -231,6 +231,7 @@ var commands = {
   remind: require("./modules/module_remind.js"), 
   anime: require("./modules/module_anime.js"), 
   pastebin: require("./modules/module_pastebin.js"), 
+  osu: require("./modules/module_osu.js"), 
   
   description: {
 	lastTime: 0,

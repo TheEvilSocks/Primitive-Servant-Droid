@@ -1,5 +1,16 @@
 var uidFromMention = /<@([0-9]+)>/;
 var database = new(require("../database.js"))();
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+
 module.exports = {
   lastTime: 0,
   cooldown: 500,
@@ -27,11 +38,14 @@ module.exports = {
     
     }else if (args[0].toLowerCase() == "push"){
 		if(args.length >= 3){
-			var pushData="";
-			for(i=2;i<args.length;i++){
+			var pushData=args.splice(2).join(" ");
+			/*for(i=2;i<args.length;i++){
 				pushData+=args[i] + " ";
+			}*/
+			if(IsJsonString(pushData)){
+				pushData = JSON.parse(pushData);
 			}
-			pushData = pushData.substring(0,pushData.length-1);
+			//pushData = pushData.substring(0,pushData.length-1);
 			if(database.other[args[1]] == undefined){
 				database.other[args[1]] = [];
 				database.other[args[1]].push(pushData);

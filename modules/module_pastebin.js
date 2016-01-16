@@ -10,7 +10,7 @@ var PastebinAPI = require('pastebin-js'),
 module.exports = {
   lastTime: 0,
   cooldown: 1000,
-  description: "pastebin get <id> - Get the contents of a pastebin link.\n pastebin create <data> - Put some data onto pastebin!",
+  description: "pastebin get <id> - Get the contents of a pastebin link.\npastebin create <data> - Put some data onto pastebin!",
   permission: {
     onlyMonitored: true
   },
