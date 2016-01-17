@@ -15,7 +15,14 @@ module.exports = {
     var osuID = args[1];
     var regex = new RegExp("^[0-9]+$");
     console.log(args[0]);
-    if(args[0].toLowerCase() === "add"){
+    if(args[0] == undefined ){
+
+          var osuID = e.db.beatmaps['id'][randomInt(0, e.db.beatmaps['id'].length)];
+          e.bot.sendMessage({
+              to: e.channelID,
+              message: "<@" + e.userID + ">  I found the perfect beatmap for you in my database https://osu.ppy.sh/s/" + osuID
+          });
+    }else if(args[0].toLowerCase() === "add"){
 	  var currentTime = new Date().getTime();
       var alreadyExists = false;
       /*if(args[1] == undefined || args[1].length != 11){
@@ -125,13 +132,8 @@ module.exports = {
           message: "<@" + e.userID + "> Listing every beatmap I know [Count: **" + e.db.beatmaps['id'].length + "**]```\n" +e.db.beatmaps['id'] + "```"
       });
     }
-    else{
-        var osuID = e.db.beatmaps['id'][randomInt(0, e.db.beatmaps['id'].length)];
-        e.bot.sendMessage({
-            to: e.channelID,
-            message: "<@" + e.userID + ">  I found the perfect beatmap for you in my database https://osu.ppy.sh/s/" + osuID
-        });
-    }
+
+
   }
 };
 

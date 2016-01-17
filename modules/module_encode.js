@@ -21,7 +21,7 @@ module.exports = {
 			toEncode += args[i] + " ";
 		}
 		toEncode = toEncode.substring(0,toEncode.length-1);
-		
+
       e.bot.sendMessage({
         to: e.channelID,
         message: "<@" + e.userID + ">\n```" + md5(toEncode) + "```"
@@ -37,6 +37,19 @@ module.exports = {
         to: e.channelID,
         message: "<@" + e.userID + ">\n```" + encoded + "```"
       });
-    } 
+    }else if(args[0].toLowerCase() == "binary"){
+      var toEncode = args.splice(1).join(" ");
+      var encoded = ""
+      for (i=0; i < toEncode.length; i++) {
+        var curBinary = "00000000";
+        curBinary += toEncode.charCodeAt(i).toString(2);
+        curBinary = curBinary.substring(curBinary.length-8);
+     	  encoded += curBinary;
+      }
+    e.bot.sendMessage({
+      to: e.channelID,
+      message: "<@" + e.userID + ">\n```" + encoded + "```"
+    });
+    }
   }
 }

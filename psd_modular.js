@@ -64,14 +64,16 @@ var commands = {
 			}, function(response) {
 				var nextTime = new Date().getTime();
 				var delay = (nextTime - curTime);
+
+        e.db.pings.push(delay);
+      	e.db.saveConfig();
+
 				var averageDelay = 0;
 				for(i=0;i<e.db.pings.length-1;i++){
 					averageDelay+= e.db.pings[i];
 				}
 				averageDelay = parseFloat(averageDelay/e.db.pings.length-1).toFixed(2);
 
-				e.db.pings.push(delay);
-				e.db.saveConfig();
 			bot.editMessage({
 				channel: e.channelID,
 				messageID: response.id,
